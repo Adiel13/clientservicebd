@@ -102,15 +102,18 @@ id_empleado VARCHAR(20) NOT NULL,
 fecha_inicio DATE NOT NULL,
 token VARCHAR(200) NOT NULL,
 fecha_fin DATE NULL,
-
+sistema SMALLINT NOT NULL,
+    
 PRIMARY KEY(id_empleado, fecha_inicio),
-FOREIGN KEY(id_empleado) REFERENCES empleado(id_empleado)
+FOREIGN KEY(id_empleado) REFERENCES empleado(id_empleado),
+FOREIGN KEY(sistema) REFERENCES sistema(id_sistema)
 );
 
 CREATE TABLE bitacora_sesion(
 id_empleado VARCHAR(20) NOT NULL,
 fecha_inicio DATE NOT NULL,
-fecha_fin DATE NULL
+fecha_fin DATE NULL,
+sistema SMALLINT NOT NULL
 );
 
 CREATE TABLE sistema(
