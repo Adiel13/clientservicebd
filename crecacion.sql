@@ -113,7 +113,8 @@ CREATE TABLE bitacora_sesion(
 id_empleado VARCHAR(20) NOT NULL,
 fecha_inicio DATE NOT NULL,
 fecha_fin DATE NULL,
-sistema SMALLINT NOT NULL
+sistema SMALLINT NOT NULL,
+token varchar(200) NOT NULL
 );
 
 CREATE TABLE sistema(
