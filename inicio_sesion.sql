@@ -52,4 +52,46 @@ END;$$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION verificar_sesion(usuario varchar(200), token_sesion varchar(200), sistema_parametro smallint)
 RETURNS SMALLINT AS $$
 	DECLARE 
+		numero_filas smallint;
+		activo smallint;
+	BEGIN
+		SELECT count(*) INTO numero_filas FROM  sesion s 
+			WHERE	
+				s.id_empleado = usuario AND
+				s.token = token_sesion AND
+				s.sistema = sistema_parametro;
+				
+		IF numero_filas = 1 THEN 
+			activo = 1;
+		ELSE 
+			activo = 0;
+		END IF;
+	RETURN activo;
+END;$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION cerrar_sesion (usuario varchar(200), token_sesion varchar(200), sistema_parametro smallint)
+RETURNS SMALLINT AS $$
+	DECLARE
+		valido smallint;
+		numero_filas smallint;
+	BEGIN
+		SELECT count(*) INTO numero_filas FROM  sesion s 
+			WHERE	
+				s.id_empleado = usuario AND
+				s.token = token_sesion AND
+				s.sistema = sistema_parametro;
+				
+		IF numero_filas = 1 THEN 
+			DELETE FROM sesion 
+				WHERE 
+					sesion.id_empleado = usuario AND
+					sesion.token = token_sesion AND
+					sesion.sistema = sistema_parametro;
+			UPDATE bitacora_sesion SET fecha_fin = now() WHERE
+				bitacora_sesion.token = token_sesion;
+			valido = 1;
+		ELSE 
+			valido = 0;
+		END IF;			
+	RETURN valido;
 END;$$ LANGUAGE plpgsql;
