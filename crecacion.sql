@@ -158,14 +158,14 @@ CREATE SEQUENCE id_venta START 0;
 CREATE TABLE venta(
 id_venta INTEGER NOT NULL,
 id_empleado VARCHAR(20) NOT NULL,
-id_empresa VARCHAR(20) NOT NULL,
+id_sucursal VARCHAR(20) NOT NULL,
 inicio_venta DATE NOT NULL,
 fin_venta DATE NULL,
 estado_venta SMALLINT NOT NULL,
 
 PRIMARY KEY(id_venta),
 FOREIGN KEY(id_empleado) REFERENCES empleado(id_empleado),
-FOREIGN KEY(id_empresa) REFERENCES empresa(id_empresa),
+FOREIGN KEY(id_sucursal) REFERENCES sucursal(id_sucursal),
 FOREIGN KEY(estado_venta) REFERENCES estado_venta(estado_venta)
 );
 
