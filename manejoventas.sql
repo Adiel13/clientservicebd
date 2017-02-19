@@ -31,3 +31,20 @@ RETURNS VARCHAR(20) AS $$
         END IF;
 	RETURN numero_filas;
 END;$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION agregar_venta_satisfactoria(ventaparam smallint, monto float, cantidad smallint, producto varchar(100), descripcion varchar(100))
+RETURNS SMALLINT AS $$
+    DECLARE
+        estado SMALLINT;
+        numero_filas SMALLINT;
+    BEGIN
+        estado = -1;
+        SELECT count(*) INTO numero_filas FROM venta WHERE id_venta = ventaparam;
+            IF numero_filas = 1 THEN
+                INSERT INTO venta_satisfactoria VALUES(ventaparam, monto, cantidad, producto, descripcion);
+                UPDATE venta SET estado_venta = 3 WHERE id_venta = ventaparam;
+                UPDATE bitacora_venta SET estado_venta = 2 WHERE id_venta = ventaparam;            
+                estado = 1;
+        END IF; 
+        RETURN estado;
+END; $$ LANGUAGE plpgsql;
