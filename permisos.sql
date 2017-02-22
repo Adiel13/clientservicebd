@@ -19,8 +19,8 @@ GRANT SELECT ON TABLE tipo_usuario TO usrconsulta;
 GRANT SELECT ON TABLE sesion TO usrconsulta;
 GRANT SELECT ON TABLE sucursal TO usrconsulta;
 GRANT SELECT ON TABLE venta_satisfactoria TO usrconsulta;
-
-
+GRANT SELECT ON TABLE bitacora_sesion TO usrconsulta;
+GRANT SELECT ON TABLE estado_venta TO usrconsulta;
 
 CREATE USER usrventa PASSWORD 'v3nt4';
 GRANT SELECT ON TABLE empleado TO usrventa;
