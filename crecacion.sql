@@ -212,13 +212,15 @@ PRIMARY KEY (id_tipo)
 );
 
 CREATE TABLE accion_empleado(
-id_accion SMALLINT NOT NULL,
+id_accion SERIAL,
 id_tipo SMALLINT NOT NULL,
 mensaje TEXT NOT NULL,
 id_empleado VARCHAR(20) NOT NULL,
 fecha DATE DEFAULT now(),
+id_gerente VARCHAR(20) NOT NULL,
     
 PRIMARY KEY (id_accion),
 FOREIGN KEY(id_tipo) REFERENCES tipo_accion(id_tipo),
-FOREIGN KEY(id_empleado) REFERENCES empleado(id_empleado)
+FOREIGN KEY(id_empleado) REFERENCES empleado(id_empleado),
+FOREIGN KEY(id_gerente) REFERENCES empleado(id_empleado)
 );
